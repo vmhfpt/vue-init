@@ -1,0 +1,26 @@
+h1 {
+  color: red;
+}
+.app__tab--custom {
+  .ant-tabs-ink-bar {
+    background: red !important;
+  }
+  .ant-tabs-nav {
+    &::before {
+      border-bottom: 0px;
+    }
+  }
+  .ant-tabs-tab-active {
+    &::before {
+      background: red !important;
+      background-color: red !important;
+    }
+    .ant-tabs-tab-btn {
+      color: red !important;
+    }
+  }
+  .ant-tabs-nav-list {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+}
