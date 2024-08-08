@@ -5,10 +5,12 @@ import './assets/tailwind.css'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css'
 import './styles/ant_custom/ant_custom.scss'
-
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 //import VueGoogleMaps from '@fawmi/vue-google-maps' //Uncaught SyntaxError: The requested module '/node_modules/fast-deep-equal/index.js?v=697c5cfd' does not provide an export named 'default'
 const app = createApp(App)
 app.use(Antd)
+app.use(ElementPlus)
 app.use(router)
 
 app.mount('#app')
