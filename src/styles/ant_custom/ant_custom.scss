@@ -143,3 +143,8 @@
     border-color: red !important;
   }
 }
+.app__custom--tabs--appointment {
+  .el-tabs__header {
+    display: none !important;
+  }
+}

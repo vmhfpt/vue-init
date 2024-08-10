@@ -1,12 +1,12 @@
 <template>
-  <form @submit="props.onSubmit">
+  <form @submit="onSubmit">
     <div class="app__custom--checkbox--input">
       <div class="mb-4 uppercase">
         <span> This is title </span>
       </div>
 
       <el-checkbox-group
-        v-model="props.purposes"
+        v-model="purposes"
         size="large"
         class="grid grid-cols-2 md:grid-cols-3 gap-[10px]"
       >
@@ -37,7 +37,7 @@
       </div>
 
       <el-checkbox-group
-        v-model="props.consumables"
+        v-model="consumables"
         size="large"
         class="grid grid-cols-2 md:grid-cols-3 gap-[10px]"
       >
@@ -64,7 +64,7 @@
       </div>
 
       <el-checkbox-group
-        v-model="props.components"
+        v-model="components"
         size="large"
         class="grid grid-cols-2 md:grid-cols-3 gap-[10px]"
       >
@@ -99,22 +99,32 @@
     </div>
   </form>
 </template>
+
 <script setup lang="ts">
 import { ArrowRight } from '@element-plus/icons-vue'
-import { Meta } from 'vee-validate'
+import { Form, Field, ErrorMessage, useForm, useFieldArray, useField } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import { schemaDetailAppointment } from '../../schemas/appointment/appointmentSchema'
 import {
   componetsCheckbox,
   consumablesCheckbox,
   purposesCheckbox
 } from '../../schemas/appointment/checkboxType'
-import { ErrorMessage } from 'vee-validate'
-interface Props {
-  meta: Meta<any>
-  consumables: any
-  components: any
-  purposes: any
-  onSubmit: (validatedValues: any) => void
-}
+import { defineProps, defineEmits } from 'vue'
+const emit = defineEmits(['submit'])
+const { handleSubmit, meta } = useForm({
+  validationSchema: toTypedSchema(schemaDetailAppointment),
+  initialValues: {
+    consumables: [],
+    components: [],
+    purposes: []
+  }
+})
+const { value: consumables } = useField('consumables')
+const { value: components } = useField('components')
+const { value: purposes } = useField('purposes')
 
-const props = defineProps<Props>()
+const onSubmit = handleSubmit((validatedValues) => {
+  emit('submit', validatedValues)
+})
 </script>
