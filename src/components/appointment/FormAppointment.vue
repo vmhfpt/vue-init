@@ -63,14 +63,25 @@
               })
             "
           />
+          <ErrorMessage :name="`schedules.${index}.time`" v-slot="{ message }">
+            <p class="text-red-500">{{ message }}</p>
+          </ErrorMessage>
         </div>
       </div>
     </div>
 
+    <ErrorMessage :name="`schedules.required`" v-slot="{ message }">
+      <p class="text-red-500">{{ message }}</p>
+    </ErrorMessage>
+
     <div class="flex flex-col gap-3">
       <el-button
         native-type="submit"
-        class="!w-full relative !bg-[#D61F1F] !border-0"
+        :class="
+          !isEmpty(errors)
+            ? '!w-full relative !bg-[#d61f1f85] !border-0'
+            : '!w-full relative !bg-[#D61F1F] !border-0'
+        "
         type="primary"
       >
         <span>Next step</span>
@@ -98,12 +109,13 @@
 import { toTypedSchema } from '@vee-validate/zod'
 import { ref, h } from 'vue'
 import dayjs, { Dayjs } from 'dayjs'
-import { useForm, useFieldArray, useField } from 'vee-validate'
+import { useForm, useFieldArray, useField, ErrorMessage } from 'vee-validate'
 import { ArrowRight } from '@element-plus/icons-vue'
 import { ClockCircleOutlined, CalendarOutlined } from '@ant-design/icons-vue'
 import { disabledDate, disabledHours, disabledMinutes } from '../../utils/date/date'
 import { schemaSchedule } from '../../schemas/appointment/appointmentSchema'
 import { watch, nextTick } from 'vue'
+import isEmpty from 'lodash/isEmpty'
 interface Schedule {
   name: string
   date: Date | null
@@ -111,9 +123,8 @@ interface Schedule {
 }
 
 const emit = defineEmits(['handlePrevStep'])
-const selectedDate = ref(null)
-const selectedTime = ref(null)
-const { handleSubmit, setFieldValue, values } = useForm({
+
+const { handleSubmit, setFieldValue, values, errors, validate } = useForm({
   validationSchema: toTypedSchema(schemaSchedule),
   initialValues: {
     schedules: [
@@ -135,13 +146,6 @@ const onDateChange = (id: number, field: Schedule) => {
   nextTick(() => {
     setFieldValue(`schedules.${id}.time`, null) // Make the update in the next tick
   })
-  // alert(id)
-  // setFieldValue(`schedules.${id}.date`, null)
-  // setTimeout(() => {
-  //   alert('set')
-  //   setFieldValue(`schedules.${id}.date`, null)
-  // }, 1000)
-  //setFieldValue(`schedules.${id}.date`, null)
 }
 const onSubmit = handleSubmit((values) => {
   console.log(JSON.stringify(values, null, 2))

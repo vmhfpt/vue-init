@@ -3,7 +3,7 @@
     <el-space>
       <el-button
         class="!text-[12px]"
-        :class="{ 'app__custom--tour-active': currentStep === 1 }"
+        :class="{ 'app__custom--tour-active': activeKey === '1' }"
         ref="ref1"
         text
         size="large"
@@ -11,7 +11,7 @@
       >
       <el-button
         class="!text-[12px]"
-        :class="{ 'app__custom--tour-active': currentStep === 2 }"
+        :class="{ 'app__custom--tour-active': activeKey === '2' }"
         ref="ref2"
         text
         size="large"
@@ -19,7 +19,7 @@
       >
       <el-button
         class="!text-[12px]"
-        :class="{ 'app__custom--tour-active': currentStep === 3 }"
+        :class="{ 'app__custom--tour-active': activeKey === '3' }"
         ref="ref3"
         text
         size="large"
@@ -27,7 +27,7 @@
       >
       <el-button
         class="!text-[12px]"
-        :class="{ 'app__custom--tour-active': currentStep === 4 }"
+        :class="{ 'app__custom--tour-active': activeKey === '4' }"
         ref="ref4"
         text
         size="large"
@@ -46,15 +46,6 @@
       /></a-tab-pane>
     </a-tabs>
   </div>
-
-  <!-- <el-tabs class="app__custom--tabs--appointment" v-model="activeName" animated>
-    <el-tab-pane name="1">
-      <DetailAppointment @submit="handleNextStep" />
-    </el-tab-pane>
-    <el-tab-pane name="2">
-      <FormAppointment @handlePrevStep="handlePrevStep" />
-    </el-tab-pane>
-  </el-tabs> -->
 </template>
 
 <script setup lang="ts">
@@ -63,19 +54,12 @@ import DetailAppointment from '../components/appointment/DetailAppointment.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 const activeKey = ref('1')
-const currentStep = ref(1)
-
-const handleStepChange = (step: number) => {
-  currentStep.value = step
-}
 
 const handleNextStep = (data: any) => {
   console.log(data)
-  currentStep.value++
-  activeKey.value = String(currentStep.value)
+  activeKey.value = String(Number(activeKey.value) + 1)
 }
 const handlePrevStep = () => {
-  currentStep.value--
-  activeKey.value = String(currentStep.value)
+  activeKey.value = String(Number(activeKey.value) - 1)
 }
 </script>
