@@ -144,7 +144,18 @@
   }
 }
 .app__custom--tabs--appointment {
-  .el-tabs__header {
+  .ant-tabs-nav {
     display: none !important;
+  }
+}
+
+.app__custom-date-picker {
+  & {
+    padding: 9px 15px !important;
+  }
+  .ant-picker-input {
+    input {
+      font-size: 14px !important;
+    }
   }
 }

@@ -2,7 +2,7 @@
   <form @submit="onSubmit">
     <div class="app__custom--checkbox--input">
       <div class="mb-4 uppercase">
-        <span> This is title </span>
+        <span>入庫の目的を選択してください。 </span>
       </div>
 
       <el-checkbox-group
@@ -25,14 +25,14 @@
 
     <div class="app__custom--checkbox--input mt-[50px]">
       <div class="mb-4 uppercase">
-        <span> This is title </span>
+        <span> 交換したい部品や、気になる部品をすべて選択してください。</span>
       </div>
 
       <div class="mb-4 uppercase relative pl-2">
         <span
           class="after:content-[''] after:absolute after:h-full after:w-[3px] after:bg-red-500 after:top-0 after:left-0"
         >
-          This is title
+          消耗品
         </span>
       </div>
 
@@ -57,9 +57,9 @@
     <div class="app__custom--checkbox--input mt-[30px]">
       <div class="mb-4 uppercase relative pl-2">
         <span
-          class="after:content-[''] after:absolute after:h-full after:w-[3px] after:bg-red-500 after:top-0 after:left-0"
+          class="after:content-[''] after:absolute after:h-full after:w-[3px] after:bg-red-500 after:top-0 after:left-0 text-[#494949]"
         >
-          This is title
+          電装品
         </span>
       </div>
 
@@ -102,7 +102,7 @@
 
 <script setup lang="ts">
 import { ArrowRight } from '@element-plus/icons-vue'
-import { Form, Field, ErrorMessage, useForm, useFieldArray, useField } from 'vee-validate'
+import { Form, ErrorMessage, useForm, useField } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { schemaDetailAppointment } from '../../schemas/appointment/appointmentSchema'
 import {

@@ -4,3 +4,13 @@ export const schemaDetailAppointment = z.object({
   components: z.array(z.string()).min(1, 'すくなくとも1つのオプションをせんたくしてください'),
   purposes: z.array(z.string()).min(1, 'すくなくとも1つのオプションをせんたくしてください')
 })
+
+export const schemaSchedule = z.object({
+  schedules: z.array(
+    z.object({
+      name: z.any(),
+      date: z.any(),
+      time: z.any()
+    })
+  )
+})
